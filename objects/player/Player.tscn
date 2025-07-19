@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1x7ijb0evwab"]
+
+[ext_resource type="Texture2D" uid="uid://fko1qa2hrega" path="res://assets/sprites/player/Player.png" id="1_o6ghu"]
+[ext_resource type="Script" uid="uid://dkrp6osocr0la" path="res://src/player/player.gd" id="1_sllil"]
+[ext_resource type="Script" uid="uid://ccv3m2g8be0hh" path="res://src/controllers/weapons/bullet/bulletController.gd" id="3_1fx2d"]
+[ext_resource type="PackedScene" uid="uid://b5sbbfmswa7v5" path="res://objects/weapons/bullet/bullet.tscn" id="4_6o7ef"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sllil"]
+radius = 16.0312
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_sllil")
+
+[node name="Player" type="Sprite2D" parent="."]
+texture = ExtResource("1_o6ghu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sllil")
+
+[node name="BulletController" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_1fx2d")
+bullet_scene = ExtResource("4_6o7ef")
+cooldown = 0.1

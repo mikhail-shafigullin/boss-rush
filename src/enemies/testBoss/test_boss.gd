@@ -1,0 +1,2 @@
+class_name TestBoss
+extends CharacterBody2D
