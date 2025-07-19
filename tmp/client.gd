@@ -55,18 +55,23 @@ func _ctl_add_process(type: Controller.TYPE , id: int):
 
 #spawner function
 func _ctl_add(data: Variant) -> Controller:
+  assert(data.has(Controller.ID))
+  print("[%d] custom spawn function with: \n %s"%[multiplayer.get_unique_id(), data])
   var c: Controller = controller_res.instantiate()
-  controllers[c.id] = c
   c.from_dict(data)
+  controllers[c.id] = c
   return c
 
 
+@rpc("any_peer", "call_local", "reliable")
 func _ctl_remove_process(uid: int):
-  if controllers.has(uid):
-    _ctl_remove(uid)
+  if multiplayer.is_server() and controllers.has(uid):
+    _ctl_remove.rpc(uid)
 
 
 @rpc("authority", "call_local", "reliable")
 func _ctl_remove(uid: int):
-  print("goodby")
-  pass
+  assert(controllers.has(uid) and controllers[uid] != null)
+  if controllers.has(uid):
+    controllers[uid].queue_free()
+  controllers.erase(uid)
