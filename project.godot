@@ -13,7 +13,7 @@ config_version=5
 config/name="boss-rush-p"
 run/main_scene="uid://cn6op6qh7x1rk"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://cekvoxy0w4lnw"
 
 [autoload]
 
