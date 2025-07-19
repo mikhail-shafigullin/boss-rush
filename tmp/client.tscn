@@ -4,3 +4,8 @@
 
 [node name="Client" type="Node"]
 script = ExtResource("1_wtm0p")
+
+[node name="Controllers" type="Node" parent="."]
+
+[node name="ControllerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Controllers")

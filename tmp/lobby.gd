@@ -21,15 +21,23 @@ func _ready() -> void:
   multiplayer.server_disconnected.connect(_on_server_disconnected)
 
   spawner.spawn_function = _spawn_client
+  
+
+func get_local_client() -> Client:
+  var net_id := multiplayer.get_unique_id()
+  assert(clients.has(net_id))
+  
+  return clients[net_id]
+  
 
 
 func _spawn_client(data: Variant) -> Client:
   var c: Client = client_res.instantiate()
   c.lobby = self
 
-  c.id = data[CLIENT_ID]
-  c.name = "Client[%d]"%c.id
-  clients[c.id] = c
+  c.net_id = data[CLIENT_ID]
+  c.name = "Client[%d]"%c.net_id
+  clients[c.net_id] = c
   
 
   return c
@@ -71,6 +79,8 @@ func _on_host_button_pressed() -> void:
   multiplayer.multiplayer_peer = p
 
   _on_connected_to_server()
+  
+  get_local_client().add_controller(0, 0)
 
 
 func _on_join_button_pressed() -> void:

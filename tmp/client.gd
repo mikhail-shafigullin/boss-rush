@@ -1,66 +1,72 @@
 class_name Client
 extends Node
 
-enum CTLTYPE
-{
-  None,
-  Keyboard,
-  Gamepad
-}
+const controller_res := preload("res://tmp/controller.tscn")
 
 var _lobby: WeakRef = weakref(null)
 var lobby: Lobby:
   get(): return _lobby.get_ref()
   set(val): _lobby = weakref(val)
 
+@onready var spawner: MultiplayerSpawner = $ControllerSpawner
 
-var id: int = -1
+var net_id: int = -1
+
+var _controllers_counter: int = 0
 var controllers: Dictionary[int, Controller]
 
-class Controller:
-  var dev_type: CTLTYPE
-  var dev_id: int
-  
-  # enum
-  # {
-  #   DEV_TYPE,
-  #   DEV_ID
-  # }
-  
-  # func to_dict() -> Dictionary:
-  #   return {
-  #     DEV_TYPE : dev_type,
-  #     DEV_ID : dev_type
-  #   }
-
-  # func from_dict(dict: Dictionary) -> void:
-  #   dev_type = dict.get(DEV_TYPE, CTLTYPE.None)
-  #   dev_id = dict.get(DEV_ID, -1)
-
+func _ready() -> void:
+  spawner.spawn_function = _ctl_add
 
 func _enter_tree() -> void:
-  print("[%d] Client spawned by %s"%[id, lobby])
+  print("[%d] Client spawned by %s"%[net_id, lobby])
 
 func _exit_tree() -> void:
-  print("[%d] Client despawned by %s"%[id, lobby])
+  print("[%d] Client despawned by %s"%[net_id, lobby])
+
   
-func controller_add_request(type: CTLTYPE, id: int) -> void:
-  controller_add.rpc_id(1, type, id)
+func add_controller(type: Controller.TYPE, id: int) -> void:
+  _ctl_add_process.rpc_id(1, type, id)
 
-func controller_remove_request(uid: int) -> void:
-  controller_remove.rpc_id(1, uid)
+
+func remove_controller(uid: int) -> void:
+  _ctl_remove_process.rpc_id(1, uid)
+
+
+func has_controller(type: Controller.TYPE , id: int):
+  for cid: int in controllers.keys():
+    var c: Controller = controllers[cid]
+    if c.dev_type == type and c.dev_id == id:
+      return true
+  return false
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _ctl_add_process(type: Controller.TYPE , id: int):
+  if multiplayer.is_server() and not has_controller(type, id):
+    _controllers_counter += 1
+    assert(not controllers.keys().has(_controllers_counter))
+    spawner.spawn({
+      Controller.ID : _controllers_counter,
+      Controller.DEV_TYPE : type,
+      Controller.DEV_ID : id,
+    })
+
+
+#spawner function
+func _ctl_add(data: Variant) -> Controller:
+  var c: Controller = controller_res.instantiate()
+  controllers[c.id] = c
+  c.from_dict(data)
+  return c
+
+
+func _ctl_remove_process(uid: int):
+  if controllers.has(uid):
+    _ctl_remove(uid)
+
 
 @rpc("authority", "call_local", "reliable")
-func controller_add(type: CTLTYPE , id: int):
-  var c := Controller.new()
-  c.dev_type = type
-  c.dev_id = id
-
-  print("hello")
-  pass
-
-
-@rpc("authority", "call_local", "reliable")
-func controller_remove(uid: int):
+func _ctl_remove(uid: int):
   print("goodby")
   pass
