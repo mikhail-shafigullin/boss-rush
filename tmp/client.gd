@@ -17,6 +17,11 @@ var controllers: Dictionary[int, Controller]
 
 func _ready() -> void:
   spawner.spawn_function = _ctl_add
+  spawner.despawned.connect(_despawned)
+  
+  if is_local():
+    add_controller(1, 0)
+    remove_controller(1)
 
 func _enter_tree() -> void:
   print("[%d] Client spawned by %s"%[net_id, lobby])
@@ -24,6 +29,9 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
   print("[%d] Client despawned by %s"%[net_id, lobby])
 
+
+func is_local() -> bool:
+  return net_id == multiplayer.get_unique_id()
   
 func add_controller(type: Controller.TYPE, id: int) -> void:
   _ctl_add_process.rpc_id(1, type, id)
@@ -56,22 +64,23 @@ func _ctl_add_process(type: Controller.TYPE , id: int):
 #spawner function
 func _ctl_add(data: Variant) -> Controller:
   assert(data.has(Controller.ID))
-  print("[%d] custom spawn function with: \n %s"%[multiplayer.get_unique_id(), data])
+
+  # print("[%d] custom spawn function with: \n %s"%[multiplayer.get_unique_id(), data])
   var c: Controller = controller_res.instantiate()
   c.from_dict(data)
   controllers[c.id] = c
+  c.client = self
   return c
-
 
 @rpc("any_peer", "call_local", "reliable")
 func _ctl_remove_process(uid: int):
   if multiplayer.is_server() and controllers.has(uid):
-    _ctl_remove.rpc(uid)
+    _despawned(controllers[uid])
 
-
-@rpc("authority", "call_local", "reliable")
-func _ctl_remove(uid: int):
+func _despawned(c: Controller):
+  var uid: int = c.id
   assert(controllers.has(uid) and controllers[uid] != null)
+
   if controllers.has(uid):
     controllers[uid].queue_free()
   controllers.erase(uid)

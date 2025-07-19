@@ -79,10 +79,6 @@ func _on_host_button_pressed() -> void:
   multiplayer.multiplayer_peer = p
 
   _on_connected_to_server()
-  
-  var c := get_local_client()
-  c.add_controller(1, 0)
-  c.remove_controller(1)
 
 
 func _on_join_button_pressed() -> void:

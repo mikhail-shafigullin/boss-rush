@@ -19,6 +19,19 @@ enum
 @export var dev_type: TYPE = TYPE.None
 @export var dev_id: int = -1
 
+var _client: WeakRef = weakref(null)
+var client: Client:
+  get(): return _client.get_ref()
+  set(val): _client = weakref(val)
+
+
+func _enter_tree() -> void:
+  print("[%d] controller(%d) connected"%[client.net_id, id])
+  
+
+func _exit_tree() -> void:
+  print("[%d] controller(%d) disconnected"%[client.net_id, id])
+
 
 func to_dict() -> Dictionary:
   return {
