@@ -21,4 +21,3 @@ func on_hit() -> void:
 		changeable_sprite.modulate = Color(10,10,10,10)
 		await get_tree().create_timer(0.1).timeout
 		changeable_sprite.modulate = original_modulate
-
