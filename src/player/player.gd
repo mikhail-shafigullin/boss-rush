@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var bulletController: BulletController = %BulletController;
 
 func _ready() -> void:
+	Global.player = self;
 	if(!bulletController):
 		print("BulletController is not initialized");
 	pass;

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3e383uo4577f"]
+[gd_scene load_steps=6 format=3 uid="uid://c3e383uo4577f"]
 
 [ext_resource type="Texture2D" uid="uid://dw1cen4dbqi4a" path="res://assets/sprites/bosses/testboss/Enemy.png" id="1_gb1kc"]
 [ext_resource type="Script" uid="uid://c0ouyrfqkv3bd" path="res://src/enemies/testBoss/test_boss.gd" id="1_qon61"]
+[ext_resource type="PackedScene" uid="uid://cksy1ff062fm4" path="res://objects/attacks/circularChannelingAttack.tscn" id="2_ok12a"]
 [ext_resource type="Script" uid="uid://coc3bl34vdwcm" path="res://src/enemies/enemyController.gd" id="3_m4s85"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gb1kc"]
@@ -10,6 +11,7 @@ radius = 30.0167
 [node name="TestBoss" type="CharacterBody2D"]
 collision_layer = 17
 script = ExtResource("1_qon61")
+circularAttackOnPlayer = ExtResource("2_ok12a")
 
 [node name="EnemySprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_gb1kc")
@@ -20,3 +22,9 @@ shape = SubResource("CircleShape2D_gb1kc")
 [node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("changeable_sprite")]
 script = ExtResource("3_m4s85")
 changeable_sprite = NodePath("../EnemySprite")
+
+[node name="AttackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
