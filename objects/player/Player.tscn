@@ -22,3 +22,5 @@ unique_name_in_owner = true
 script = ExtResource("3_1fx2d")
 bullet_scene = ExtResource("4_6o7ef")
 cooldown = 0.1
+
+[node name="Camera2D" type="Camera2D" parent="."]

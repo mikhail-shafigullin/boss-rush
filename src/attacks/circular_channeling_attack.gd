@@ -3,10 +3,12 @@ class_name CircularChannelingAttack
 extends Node2D
 
 @export var radius: float = 200.0;
-@export var damage: float = 0.0;
+@export var damage: float = 20.0;
+@export var isEnemy: bool = true;
 
 @onready var channelingSprite: Sprite2D = %ChannelingSprite;
 @onready var timer = %ChannelingTimer;
+@onready var area2D: Area2D = %Area2D
 
 func _ready() -> void:
 	channelingSprite.material.set_shader_parameter("progress", 0)
@@ -20,6 +22,11 @@ func _process(delta: float) -> void:
 func start_channeling() -> void:
 	timer.start();
 
+func perform_attack() -> void:
+	if(Global.player):
+		Global.player.hurt(damage)
+		queue_free();
+
 func _on_channeling_timer_timeout() -> void:
 	if not Engine.is_editor_hint():
-		queue_free();
+		perform_attack();
