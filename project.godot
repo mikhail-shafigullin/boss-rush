@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="boss-rush-p"
-run/main_scene="uid://b5faqinydwlc3"
+run/main_scene="uid://cx4q6kwraju2l"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://cekvoxy0w4lnw"
 

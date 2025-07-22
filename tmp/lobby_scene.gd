@@ -11,3 +11,7 @@ func _on_host_button_pressed() -> void:
 
 func _on_button_pressed() -> void:
   Lobby.reset()
+
+
+func _on_start_button_pressed() -> void:
+  Lobby.start_game()

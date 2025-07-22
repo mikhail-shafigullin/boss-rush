@@ -54,13 +54,14 @@ func has_controller(type: Controller.TYPE , id: int):
 @rpc("any_peer", "call_local", "reliable")
 func _ctl_add_process(type: Controller.TYPE , id: int):
   if multiplayer.is_server() and not has_controller(type, id):
-    _controllers_counter += 1
-    assert(not controllers.keys().has(_controllers_counter))
-    spawner.spawn({
-      Controller.ID : _controllers_counter,
-      Controller.DEV_TYPE : type,
-      Controller.DEV_ID : id,
-    })
+    if Lobby.has_controller_slot():
+      _controllers_counter += 1
+      assert(not controllers.keys().has(_controllers_counter))
+      spawner.spawn({
+        Controller.ID : _controllers_counter,
+        Controller.DEV_TYPE : type,
+        Controller.DEV_ID : id,
+      })
 
 
 #spawner function

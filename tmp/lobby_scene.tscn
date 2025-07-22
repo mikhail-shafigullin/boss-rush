@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5faqinydwlc3"]
 
-[ext_resource type="Script" uid="uid://bh1x22w3ld4gd" path="res://tmp/test.gd" id="1_owemx"]
-[ext_resource type="PackedScene" uid="uid://ipisefss810m" path="res://tmp/lobby/client_list.tscn" id="2_lopwu"]
-[ext_resource type="PackedScene" uid="uid://dlunmak11jgfv" path="res://tmp/lobby/controller_list.tscn" id="3_sgvlb"]
+[ext_resource type="Script" uid="uid://bh1x22w3ld4gd" path="res://tmp/lobby_scene.gd" id="1_m52pt"]
+[ext_resource type="PackedScene" uid="uid://ipisefss810m" path="res://tmp/lobby/client_list.tscn" id="2_jd53g"]
+[ext_resource type="PackedScene" uid="uid://dlunmak11jgfv" path="res://tmp/lobby/controller_list.tscn" id="3_64utb"]
 
-[node name="Test" type="Control"]
+[node name="LobbyScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_owemx")
+script = ExtResource("1_m52pt")
 
 [node name="Clients" type="Node" parent="."]
 
@@ -52,7 +52,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "aoeueoau"
 
-[node name="ClientsList" parent="." instance=ExtResource("2_lopwu")]
+[node name="ClientsList" parent="." instance=ExtResource("2_jd53g")]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.503086
@@ -60,13 +60,29 @@ anchor_right = 0.300347
 anchor_bottom = 0.695988
 metadata/_edit_use_anchors_ = true
 
-[node name="ControllerList" parent="." instance=ExtResource("3_sgvlb")]
+[node name="ControllerList" parent="." instance=ExtResource("3_64utb")]
 layout_mode = 1
 offset_left = 407.0
 offset_top = 436.0
 offset_right = -383.0
 offset_bottom = -84.0
 
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -71.0
+offset_right = 48.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "start game"
+
 [connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

@@ -5,6 +5,17 @@ enum
   CLIENT_ID = 0,
 }
 
+enum SCENE
+{
+  LOBBY,
+  GAME,
+}
+
+const _scenes: Dictionary[SCENE, PackedScene] = {  
+  SCENE.LOBBY : preload("res://tmp/lobby_scene.tscn"),
+  SCENE.GAME : preload("res://tmp/game.tscn"),
+}
+
 signal connected
 signal disconnected
 signal client_connected(client: Client)
@@ -22,8 +33,30 @@ var clients: Dictionary[int, Client]
 var spawner: MultiplayerSpawner 
 
 var active: bool = false
+var running: bool = false
+
+var scene_manager: SceneManager = null
+
+@rpc("authority", "call_local", "reliable")
+func change_scene(scene: SCENE):
+  assert(scene_manager)
+  scene_manager.change_scene(_scenes[scene])
+
+
+func start_game() -> bool:
+  if is_multiplayer_authority():
+    if active and not running:
+      running = true
+      change_scene.rpc(SCENE.GAME)
+      return true
+  else:
+    push_warning("only host can start the game")
+
+  return false
 
 func has_controller_slot():
+  # if multiplayer.is_server(): # test
+  #   return get_controllers().size() < 2
   return get_controllers().size() < MAX_CONTROLLERS
 
 func get_controllers() -> Array[Controller]:
