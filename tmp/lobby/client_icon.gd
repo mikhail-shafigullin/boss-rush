@@ -3,5 +3,6 @@ extends Label
 
 var client: Client:
     set(c):
-        client = c
-        text = str(c.net_id)
+        if c:
+            client = c
+            text = str(c.net_id)

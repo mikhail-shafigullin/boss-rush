@@ -10,8 +10,12 @@ signal disconnected
 signal client_connected(client: Client)
 signal client_disconnected(client: Client)
 
+signal controller_connected(controller: Controller)
+signal controller_disconnected(controller: Controller)
+
 const PORT: int = 31221;
 const MAX_CLIENTS: int = 8;
+const MAX_CONTROLLERS: int = 8;
 const client_res := preload("res://tmp/client.tscn")
 
 var clients: Dictionary[int, Client]
@@ -19,8 +23,15 @@ var spawner: MultiplayerSpawner
 
 var active: bool = false
 
-func on_button():
-  get_local_client().controllers[1].dev_id += 1
+func has_controller_slot():
+  return get_controllers().size() < MAX_CONTROLLERS
+
+func get_controllers() -> Array[Controller]:
+  var out: Array[Controller] = []
+  for c: Client in get_clients():
+    for cc: Controller in c.get_controllers():
+      out.push_back(cc)
+  return out
 
 func _ready() -> void:
   multiplayer.connected_to_server.connect(_on_connected_to_server)
@@ -38,29 +49,30 @@ func host() -> void:
   if active:
     reset()
 
-  active = true
   var p: MultiplayerPeer = ENetMultiplayerPeer.new()
-  p.create_server(PORT, MAX_CLIENTS)
-  multiplayer.multiplayer_peer = p
+  var err: int = p.create_server(PORT, MAX_CLIENTS)
+  if err == OK:
+    multiplayer.multiplayer_peer = p
 
-  _on_connected_to_server()
+    _on_connected_to_server()
 
 
 func join() -> void:
   if active:
     reset()
 
-  active = true
   var p: MultiplayerPeer = ENetMultiplayerPeer.new()
-  p.create_client("localhost", PORT)
-  multiplayer.multiplayer_peer = p
+  var err: int = p.create_client("localhost", PORT)
+  if err == OK:
+    multiplayer.multiplayer_peer = p
 
 func reset():
   if active:
     multiplayer.multiplayer_peer = null
+    active = false
 
-    # for uid: int in clients.keys():
-    #   clients[uid].queue_free()
+    for c: Client in get_clients():
+      c.queue_free()
     clients.clear()
 
   disconnected.emit()
@@ -70,7 +82,10 @@ func get_clients() -> Array[Client]:
 
 func get_local_client() -> Client:
   var net_id := multiplayer.get_unique_id()
-  assert(clients.has(net_id))
+  if not clients.has(net_id):
+    # assert(clients.has(net_id))
+    push_warning("trying to get non existing client")
+    return null
   
   return clients[net_id]
   
@@ -85,6 +100,8 @@ func _spawn_client(data: Variant) -> Client:
   clients[c.net_id] = c
 
   client_connected.emit.call_deferred(c)
+  c.controller_connected.connect(controller_connected.emit)
+  c.controller_disconnected.connect(controller_disconnected.emit)
 
   return c
 
@@ -109,6 +126,7 @@ func _on_connected_to_server():
   print("[%d] connected to the server"%net_id)
   _on_peer_connected(net_id)
   
+  active = true
   connected.emit()
 
 

@@ -33,6 +33,17 @@ func _exit_tree() -> void:
   print("[%d] controller(%d) disconnected"%[client.net_id, id])
 
 
+func is_for(event: InputEvent) -> bool:
+  match dev_type:
+    TYPE.Keyboard:
+      if event is InputEventKey and event.device == dev_id:
+        return true
+    TYPE.Gamepad:
+      if event is InputEventJoypadButton and event.device == dev_id:
+        return true
+      
+  return false
+
 func to_dict() -> Dictionary:
   return {
     ID : id,
@@ -46,3 +57,20 @@ func from_dict(dict: Dictionary) -> void:
   dev_id = dict.get(DEV_ID, dev_id)
 
   name = "Controller[%d]"%id
+
+static func get_event_type(event: InputEvent) -> TYPE:
+  if event is InputEventKey:
+    return TYPE.Keyboard
+  elif event is InputEventJoypadButton:
+    return TYPE.Gamepad
+  else:
+    return TYPE.None
+
+static func event_is_valid(event: InputEvent) -> bool:
+  if event is InputEventMouseButton:
+    return false
+
+  elif event is InputEventJoypadMotion:
+    return false
+
+  return event is InputEventKey or InputEventJoypadButton

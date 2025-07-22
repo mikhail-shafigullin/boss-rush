@@ -1,6 +1,9 @@
 class_name Client
 extends Node
 
+signal controller_connected(controller: Controller)
+signal controller_disconnected(controller: Controller)
+
 const controller_res := preload("res://tmp/controller.tscn")
 
 var _lobby: WeakRef = weakref(null)
@@ -15,13 +18,12 @@ var net_id: int = -1
 var _controllers_counter: int = 0
 var controllers: Dictionary[int, Controller]
 
+func get_controllers() -> Array[Controller]:
+  return controllers.values()
+
 func _ready() -> void:
   spawner.spawn_function = _ctl_add
   spawner.despawned.connect(_despawned)
-  
-  if is_local():
-    add_controller(0, 0)
-    # remove_controller(1)
 
 func _enter_tree() -> void:
   print("[%d] Client spawned by %s"%[net_id, lobby])
@@ -71,6 +73,8 @@ func _ctl_add(data: Variant) -> Controller:
   controllers[c.id] = c
   c.client = self
   c.set_multiplayer_authority(net_id)
+  
+  controller_connected.emit(c)
   return c
 
 @rpc("any_peer", "call_local", "reliable")
@@ -82,6 +86,13 @@ func _despawned(c: Controller):
   var uid: int = c.id
   assert(controllers.has(uid) and controllers[uid] != null)
 
-  if controllers.has(uid):
-    controllers[uid].queue_free()
   controllers.erase(uid)
+  controller_disconnected.emit(c)
+  c.queue_free()
+
+
+func event_handled(event: InputEvent) -> bool:
+  for c: Controller in get_controllers():
+    if c.is_for(event):
+      return true
+  return false

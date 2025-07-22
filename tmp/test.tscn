@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5faqinydwlc3"]
+[gd_scene load_steps=4 format=3 uid="uid://b5faqinydwlc3"]
 
 [ext_resource type="Script" uid="uid://bh1x22w3ld4gd" path="res://tmp/test.gd" id="1_owemx"]
 [ext_resource type="PackedScene" uid="uid://ipisefss810m" path="res://tmp/lobby/client_list.tscn" id="2_lopwu"]
+[ext_resource type="PackedScene" uid="uid://dlunmak11jgfv" path="res://tmp/lobby/controller_list.tscn" id="3_sgvlb"]
 
 [node name="Test" type="Control"]
 layout_mode = 3
@@ -58,6 +59,13 @@ anchor_top = 0.503086
 anchor_right = 0.300347
 anchor_bottom = 0.695988
 metadata/_edit_use_anchors_ = true
+
+[node name="ControllerList" parent="." instance=ExtResource("3_sgvlb")]
+layout_mode = 1
+offset_left = 407.0
+offset_top = 436.0
+offset_right = -383.0
+offset_bottom = -84.0
 
 [connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]

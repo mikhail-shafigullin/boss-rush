@@ -11,8 +11,18 @@ config_version=5
 [application]
 
 config/name="boss-rush-p"
+run/main_scene="uid://b5faqinydwlc3"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://cekvoxy0w4lnw"
+
+[autoload]
+
+Lobby="*res://tmp/lobby.gd"
+
+[display]
+
+window/size/initial_position_type=3
+window/size/initial_screen=1
 
 [rendering]
 
