@@ -1,20 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5faqinydwlc3"]
+[gd_scene load_steps=3 format=3 uid="uid://b5faqinydwlc3"]
 
-[ext_resource type="Script" uid="uid://cm62qp2f1vta" path="res://tmp/lobby.gd" id="1_5fjn3"]
+[ext_resource type="Script" uid="uid://bh1x22w3ld4gd" path="res://tmp/test.gd" id="1_owemx"]
+[ext_resource type="PackedScene" uid="uid://ipisefss810m" path="res://tmp/lobby/client_list.tscn" id="2_lopwu"]
 
-[node name="Lobby" type="Control"]
+[node name="Test" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5fjn3")
+script = ExtResource("1_owemx")
 
 [node name="Clients" type="Node" parent="."]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath("../Clients")
 
 [node name="JoinButton" type="Button" parent="."]
 layout_mode = 1
@@ -47,5 +45,20 @@ grow_vertical = 2
 text = "host
 "
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "aoeueoau"
+
+[node name="ClientsList" parent="." instance=ExtResource("2_lopwu")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.503086
+anchor_right = 0.300347
+anchor_bottom = 0.695988
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

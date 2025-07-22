@@ -20,8 +20,8 @@ func _ready() -> void:
   spawner.despawned.connect(_despawned)
   
   if is_local():
-    add_controller(1, 0)
-    remove_controller(1)
+    add_controller(0, 0)
+    # remove_controller(1)
 
 func _enter_tree() -> void:
   print("[%d] Client spawned by %s"%[net_id, lobby])
@@ -70,6 +70,7 @@ func _ctl_add(data: Variant) -> Controller:
   c.from_dict(data)
   controllers[c.id] = c
   c.client = self
+  c.set_multiplayer_authority(net_id)
   return c
 
 @rpc("any_peer", "call_local", "reliable")
