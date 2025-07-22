@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0ujfpoa7l4f1"]
+
+[ext_resource type="Script" uid="uid://dlgm4usmo4uvv" path="res://src/mp/Client.gd" id="1_savfy"]
+
+[node name="Client" type="Node"]
+script = ExtResource("1_savfy")
+
+[node name="Controllers" type="Node" parent="."]
+
+[node name="ControllerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Controllers")

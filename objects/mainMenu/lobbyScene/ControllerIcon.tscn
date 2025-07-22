@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://cni8hdrc8fge"]
+
+[ext_resource type="Script" uid="uid://njmoq0r7pdjf" path="res://src/mainMenu/lobbyScene/ControllerIcon.gd" id="1_meokv"]
+
+[node name="ControllerIcon" type="TabContainer"]
+custom_minimum_size = Vector2(128, 128)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+current_tab = 0
+tabs_position = 1
+tabs_visible = false
+script = ExtResource("1_meokv")
+
+[node name="Standby" type="Control" parent="."]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Label" type="Label" parent="Standby"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -11.5
+offset_right = 92.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "press any button to join"
+
+[node name="Active" type="Control" parent="."]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ControllerId" type="Label" parent="Active"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
