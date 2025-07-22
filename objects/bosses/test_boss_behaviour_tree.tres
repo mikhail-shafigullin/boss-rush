@@ -1,19 +1,35 @@
-[gd_resource type="BehaviorTree" load_steps=11 format=3 uid="uid://b80lkde0e5j2j"]
+[gd_resource type="BehaviorTree" load_steps=19 format=3 uid="uid://b80lkde0e5j2j"]
+
+[ext_resource type="Script" uid="uid://dnyu34y63i4pt" path="res://ai/tasks/enemies/send_circle_attack_to_player.gd" id="1_c7uwe"]
+[ext_resource type="Script" uid="uid://dojgiclr7nfpa" path="res://ai/tasks/enemies/player_in_range.gd" id="1_hmuwe"]
+[ext_resource type="Script" uid="uid://dfq4l0a08wmx8" path="res://ai/tasks/enemies/SendCircleSegmentAttackToPlayer.gd" id="2_qawor"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_su5lh"]
 
+[sub_resource type="BTCondition" id="BTCondition_qawor"]
+script = ExtResource("1_hmuwe")
+distance_min = 0.0
+distance_max = 200.0
+
+[sub_resource type="BTAction" id="BTAction_cysw0"]
+script = ExtResource("2_qawor")
+
+[sub_resource type="BTCooldown" id="BTCooldown_qawor"]
+duration = 3.0
+children = [SubResource("BTAction_cysw0")]
+
+[sub_resource type="BTWait" id="BTWait_qawor"]
+
+[sub_resource type="BTSequence" id="BTSequence_c7uwe"]
+children = [SubResource("BTCondition_qawor"), SubResource("BTCooldown_qawor"), SubResource("BTWait_qawor")]
+
+[sub_resource type="BTAction" id="BTAction_hmuwe"]
+script = ExtResource("1_c7uwe")
+
 [sub_resource type="BTWait" id="BTWait_su5lh"]
 
-[sub_resource type="BBNode" id="BBNode_su5lh"]
-saved_value = NodePath(".")
-resource_name = "."
-
-[sub_resource type="BTCallMethod" id="BTCallMethod_c7uwe"]
-node = SubResource("BBNode_su5lh")
-method = &"circular_attack_to_player"
-
 [sub_resource type="BTSequence" id="BTSequence_su5lh"]
-children = [SubResource("BTWait_su5lh"), SubResource("BTCallMethod_c7uwe")]
+children = [SubResource("BTAction_hmuwe"), SubResource("BTWait_su5lh")]
 metadata/_weight_ = 0.428571
 
 [sub_resource type="BTRandomWait" id="BTRandomWait_c7uwe"]
@@ -31,9 +47,12 @@ method = &"teleport_to_random_pos_near_player"
 [sub_resource type="BTSequence" id="BTSequence_hmuwe"]
 children = [SubResource("BTRandomWait_c7uwe"), SubResource("BTCallMethod_hmuwe")]
 
-[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_su5lh"]
+[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_hmuwe"]
 children = [SubResource("BTSequence_su5lh"), SubResource("BTSequence_hmuwe")]
+
+[sub_resource type="BTSelector" id="BTSelector_su5lh"]
+children = [SubResource("BTSequence_c7uwe"), SubResource("BTProbabilitySelector_hmuwe")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_su5lh")
-root_task = SubResource("BTProbabilitySelector_su5lh")
+root_task = SubResource("BTSelector_su5lh")

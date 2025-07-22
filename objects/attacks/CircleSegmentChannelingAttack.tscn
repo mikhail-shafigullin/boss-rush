@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvy54p23yg04x"]
+
+[ext_resource type="Script" uid="uid://d1fomv5vh3dqe" path="res://src/attacks/circle_segment_channeling_attack.gd" id="1_aqcbp"]
+[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/circle_attack_channeling.gdshader" id="2_fkf4m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fkf4m"]
+resource_local_to_scene = true
+shader = ExtResource("2_fkf4m")
+shader_parameter/border_width = 0.007
+shader_parameter/progress = 0.50256
+shader_parameter/angle = 0.25
+shader_parameter/border_color = Color(1, 1, 1, 0.5)
+shader_parameter/fill_color = Color(1, 0, 0, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_4mdqj"]
+offsets = PackedFloat32Array(0.00649351, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_evfyk"]
+gradient = SubResource("Gradient_4mdqj")
+width = 1
+
+[node name="CircleSegmentChannelingAttack" type="Node2D"]
+scale = Vector2(200, 200)
+script = ExtResource("1_aqcbp")
+radius = 400.0
+
+[node name="ChannelingSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_fkf4m")
+texture = SubResource("GradientTexture1D_evfyk")
+
+[node name="Area2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(0, 0, 0.335, -0.32, 0.445, -0.13, 0.43, 0.165, 0.33, 0.32)
+
+[node name="ChannelingTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="ChannelingTimer" to="." method="_on_channeling_timer_timeout"]

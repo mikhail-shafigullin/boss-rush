@@ -18,7 +18,6 @@ func _process(delta: float) -> void:
 
 
 func _on_attack_timer_timeout() -> void:
-	
 	pass # Replace with function body.
 	
 func circular_attack_to_player() -> void:

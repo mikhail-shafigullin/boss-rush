@@ -18,7 +18,7 @@ func on_hit() -> void:
 		changeable_sprite.modulate = Color(10,10,10,10)
 		await get_tree().create_timer(0.1).timeout
 		changeable_sprite.modulate = original_modulate
-		hp -= 5;
+		hp -= 2;
 		print("Boss hit hp: ", hp)
 		if(hp <= 0.0 and root_collided_object):
 			root_collided_object.queue_free();
