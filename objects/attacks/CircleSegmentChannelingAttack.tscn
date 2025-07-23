@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvy54p23yg04x"]
 
-[ext_resource type="Script" uid="uid://d1fomv5vh3dqe" path="res://src/attacks/circle_segment_channeling_attack.gd" id="1_aqcbp"]
-[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/circle_attack_channeling.gdshader" id="2_fkf4m"]
+[ext_resource type="Script" uid="uid://d1fomv5vh3dqe" path="res://src/attacks/CircleSegmentChannelingAttack.gd" id="1_aqcbp"]
+[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/CircleAttackChanneling.gdshader" id="2_fkf4m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fkf4m"]
 resource_local_to_scene = true
 shader = ExtResource("2_fkf4m")
 shader_parameter/border_width = 0.007
-shader_parameter/progress = 0.50256
+shader_parameter/progress = 0.437689
 shader_parameter/angle = 0.25
 shader_parameter/border_color = Color(1, 1, 1, 0.5)
 shader_parameter/fill_color = Color(1, 0, 0, 0.5)
@@ -21,7 +21,7 @@ gradient = SubResource("Gradient_4mdqj")
 width = 1
 
 [node name="CircleSegmentChannelingAttack" type="Node2D"]
-scale = Vector2(200, 200)
+scale = Vector2(400, 400)
 script = ExtResource("1_aqcbp")
 radius = 400.0
 

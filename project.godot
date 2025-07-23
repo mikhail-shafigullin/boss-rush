@@ -17,8 +17,8 @@ config/icon="uid://cekvoxy0w4lnw"
 
 [autoload]
 
+Global="*res://src/globals/Global.gd"
 Lobby="*res://src/mp/Lobby.gd"
-Global="*res://src/globals/global.gd"
 
 [display]
 

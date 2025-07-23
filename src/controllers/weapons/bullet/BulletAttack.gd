@@ -1,4 +1,4 @@
-class_name Bullet
+class_name BulletAttack
 extends Area2D
 
 @export var speed: float = 1000.0

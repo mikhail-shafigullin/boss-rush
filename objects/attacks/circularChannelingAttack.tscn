@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cksy1ff062fm4"]
 
-[ext_resource type="Script" uid="uid://kbmrnmx34q6y" path="res://src/attacks/circular_channeling_attack.gd" id="1_4mdqj"]
-[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/circle_attack_channeling.gdshader" id="2_ic5nl"]
+[ext_resource type="Script" uid="uid://kbmrnmx34q6y" path="res://src/attacks/CircularChannelingAttack.gd" id="1_4mdqj"]
+[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/CircleAttackChanneling.gdshader" id="2_ic5nl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1fvuh"]
 resource_local_to_scene = true
