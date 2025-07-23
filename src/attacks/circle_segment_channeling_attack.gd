@@ -1,5 +1,5 @@
 @tool
-class_name CircularChannelingAttack
+class_name CircleSegmentChannelingAttack
 extends Node2D
 
 @export var radius: float = 200.0;
@@ -8,13 +8,13 @@ extends Node2D
 
 @onready var channelingSprite: Sprite2D = %ChannelingSprite;
 @onready var timer = %ChannelingTimer;
-@onready var area2D: Area2D = %Area2D;
+@onready var area2D: Area2D = %Area2D
 
 func _ready() -> void:
 	channelingSprite.material.set_shader_parameter("progress", 0)
 	scale = Vector2(radius, radius);
 	start_channeling();
-	
+
 func _process(delta: float) -> void:
 	var progress: float = 1 - clampf(timer.time_left/timer.wait_time, 0, 1);
 	channelingSprite.material.set_shader_parameter("progress", progress)

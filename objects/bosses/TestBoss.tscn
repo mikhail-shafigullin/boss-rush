@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dw1cen4dbqi4a" path="res://assets/sprites/bosses/testboss/Enemy.png" id="1_gb1kc"]
 [ext_resource type="Script" uid="uid://c0ouyrfqkv3bd" path="res://src/enemies/testBoss/test_boss.gd" id="1_qon61"]
-[ext_resource type="PackedScene" uid="uid://cksy1ff062fm4" path="res://objects/attacks/circularChannelingAttack.tscn" id="2_ok12a"]
+[ext_resource type="PackedScene" uid="uid://cksy1ff062fm4" path="res://objects/attacks/CircularChannelingAttack.tscn" id="2_ok12a"]
 [ext_resource type="Script" uid="uid://coc3bl34vdwcm" path="res://src/enemies/enemyController.gd" id="3_m4s85"]
 [ext_resource type="BehaviorTree" uid="uid://b80lkde0e5j2j" path="res://objects/bosses/test_boss_behaviour_tree.tres" id="5_8fjiu"]
 

@@ -1,22 +1,23 @@
 [gd_scene load_steps=7 format=3 uid="uid://cksy1ff062fm4"]
 
-[ext_resource type="Script" uid="uid://kbmrnmx34q6y" path="res://src/attacks/circular_channeling_attack.gd" id="1_2urnp"]
-[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/circle_attack_channeling.gdshader" id="2_64t3d"]
+[ext_resource type="Script" uid="uid://kbmrnmx34q6y" path="res://src/attacks/circular_channeling_attack.gd" id="1_4mdqj"]
+[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/circle_attack_channeling.gdshader" id="2_ic5nl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1fvuh"]
 resource_local_to_scene = true
-shader = ExtResource("2_64t3d")
-shader_parameter/border_width = 0.005
-shader_parameter/progress = 0.956697
-shader_parameter/border_color = Color(1, 1, 1, 0.470588)
-shader_parameter/fill_color = Color(1, 0, 0, 0.470588)
+shader = ExtResource("2_ic5nl")
+shader_parameter/border_width = 0.007
+shader_parameter/progress = 0.844728
+shader_parameter/angle = 1.0
+shader_parameter/border_color = Color(1, 1, 1, 0.5)
+shader_parameter/fill_color = Color(1, 0, 0, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_mt7cn"]
+[sub_resource type="Gradient" id="Gradient_4mdqj"]
 offsets = PackedFloat32Array(0.00649351, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_dbfo6"]
-gradient = SubResource("Gradient_mt7cn")
+gradient = SubResource("Gradient_4mdqj")
 width = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2urnp"]
@@ -24,8 +25,7 @@ radius = 0.45
 
 [node name="CircularChannelingAttack" type="Node2D"]
 scale = Vector2(200, 200)
-script = ExtResource("1_2urnp")
-isEnemy = null
+script = ExtResource("1_4mdqj")
 
 [node name="ChannelingSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
