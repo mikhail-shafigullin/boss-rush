@@ -1,5 +1,5 @@
 @tool
-class_name CircleSegmentChannelingAttack
+class_name CircleChannelingAttack
 extends Node2D
 
 @export var radius: float = 200.0;

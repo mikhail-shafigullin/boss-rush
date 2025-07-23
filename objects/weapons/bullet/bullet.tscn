@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5sbbfmswa7v5"]
+[gd_scene load_steps=5 format=3 uid="uid://b5sbbfmswa7v5"]
 
 [ext_resource type="Script" uid="uid://v3okdnah4w1l" path="res://src/controllers/weapons/bullet/BulletAttack.gd" id="1_70nx8"]
 [ext_resource type="Texture2D" uid="uid://dkjuls5uw3sc3" path="res://assets/sprites/weapons/bullet/bullet02.png" id="2_jghcl"]
+[ext_resource type="Script" uid="uid://cqqypi7jwwheo" path="res://src/attacks/components/AttackComponent.gd" id="3_je3pf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jghcl"]
 radius = 7.0
@@ -14,3 +15,8 @@ texture = ExtResource("2_jghcl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jghcl")
+
+[node name="DamageComponent" type="Node" parent="." node_paths=PackedStringArray("area")]
+script = ExtResource("3_je3pf")
+area = NodePath("..")
+metadata/_custom_type_script = "uid://cqqypi7jwwheo"

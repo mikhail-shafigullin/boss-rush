@@ -1,13 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvy54p23yg04x"]
+[gd_scene load_steps=7 format=3 uid="uid://dvy54p23yg04x"]
 
 [ext_resource type="Script" uid="uid://d1fomv5vh3dqe" path="res://src/attacks/CircleSegmentChannelingAttack.gd" id="1_aqcbp"]
 [ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/CircleAttackChanneling.gdshader" id="2_fkf4m"]
+[ext_resource type="Script" uid="uid://cqqypi7jwwheo" path="res://src/attacks/components/AttackComponent.gd" id="3_evfyk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fkf4m"]
 resource_local_to_scene = true
 shader = ExtResource("2_fkf4m")
 shader_parameter/border_width = 0.007
-shader_parameter/progress = 0.437689
+shader_parameter/progress = 1.0
 shader_parameter/angle = 0.25
 shader_parameter/border_color = Color(1, 1, 1, 0.5)
 shader_parameter/fill_color = Color(1, 0, 0, 0.5)
@@ -32,6 +33,8 @@ texture = SubResource("GradientTexture1D_evfyk")
 
 [node name="Area2D" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 128
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(0, 0, 0.335, -0.32, 0.445, -0.13, 0.43, 0.165, 0.33, 0.32)
@@ -39,4 +42,12 @@ polygon = PackedVector2Array(0, 0, 0.335, -0.32, 0.445, -0.13, 0.43, 0.165, 0.33
 [node name="ChannelingTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 
-[connection signal="timeout" from="ChannelingTimer" to="." method="_on_channeling_timer_timeout"]
+[node name="AttackComponent" type="Node" parent="." node_paths=PackedStringArray("channeling_timer", "area")]
+unique_name_in_owner = true
+script = ExtResource("3_evfyk")
+damage = 20.0
+channeling_timer = NodePath("../ChannelingTimer")
+area = NodePath("../Area2D")
+metadata/_custom_type_script = "uid://cqqypi7jwwheo"
+
+[connection signal="attack_performed" from="AttackComponent" to="." method="_on_attack_component_attack_performed"]

@@ -55,7 +55,12 @@ player-fire={
 
 [layer_names]
 
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Ally"
 2d_physics/layer_5="Enemy"
+2d_physics/layer_6="PlayerAttack"
+2d_physics/layer_7="AllyAttack"
+2d_physics/layer_8="EnemyAttack"
 
 [rendering]
 

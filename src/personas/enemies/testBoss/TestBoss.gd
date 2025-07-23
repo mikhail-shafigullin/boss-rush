@@ -15,10 +15,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass;
-
-
-func _on_attack_timer_timeout() -> void:
-	pass # Replace with function body.
 	
 func circular_attack_to_player() -> void:
 	var player: Player = Global.player;

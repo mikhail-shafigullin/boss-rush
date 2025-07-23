@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 	position += direction * speed * delta
 
 func _on_body_entered(body: Node) -> void:
+	print(body);
 	if body.get_collision_layer() & enemyBitMask == enemyBitMask:
 		var enemyController: EnemyController = body.get_node("EnemyController");
 		enemyController.on_hit()

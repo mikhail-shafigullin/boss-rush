@@ -9,7 +9,7 @@
 [sub_resource type="BTCondition" id="BTCondition_qawor"]
 script = ExtResource("1_hmuwe")
 distance_min = 0.0
-distance_max = 200.0
+distance_max = 100.0
 
 [sub_resource type="BTAction" id="BTAction_cysw0"]
 script = ExtResource("2_qawor")
@@ -23,13 +23,13 @@ children = [SubResource("BTAction_cysw0")]
 [sub_resource type="BTSequence" id="BTSequence_c7uwe"]
 children = [SubResource("BTCondition_qawor"), SubResource("BTCooldown_qawor"), SubResource("BTWait_qawor")]
 
+[sub_resource type="BTWait" id="BTWait_su5lh"]
+
 [sub_resource type="BTAction" id="BTAction_hmuwe"]
 script = ExtResource("1_c7uwe")
 
-[sub_resource type="BTWait" id="BTWait_su5lh"]
-
 [sub_resource type="BTSequence" id="BTSequence_su5lh"]
-children = [SubResource("BTAction_hmuwe"), SubResource("BTWait_su5lh")]
+children = [SubResource("BTWait_su5lh"), SubResource("BTAction_hmuwe")]
 metadata/_weight_ = 0.428571
 
 [sub_resource type="BTRandomWait" id="BTRandomWait_c7uwe"]

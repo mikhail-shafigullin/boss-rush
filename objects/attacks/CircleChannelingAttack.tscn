@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://cksy1ff062fm4"]
+[gd_scene load_steps=8 format=3 uid="uid://cksy1ff062fm4"]
 
-[ext_resource type="Script" uid="uid://kbmrnmx34q6y" path="res://src/attacks/CircularChannelingAttack.gd" id="1_4mdqj"]
-[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/CircleAttackChanneling.gdshader" id="2_ic5nl"]
+[ext_resource type="Script" uid="uid://kbmrnmx34q6y" path="res://src/attacks/CircleChannelingAttack.gd" id="1_y31lr"]
+[ext_resource type="Shader" uid="uid://6lxphbtjejqf" path="res://src/shaders/CircleAttackChanneling.gdshader" id="2_jbsl1"]
+[ext_resource type="Script" uid="uid://cqqypi7jwwheo" path="res://src/attacks/components/AttackComponent.gd" id="3_cpvlw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1fvuh"]
 resource_local_to_scene = true
-shader = ExtResource("2_ic5nl")
+shader = ExtResource("2_jbsl1")
 shader_parameter/border_width = 0.007
-shader_parameter/progress = 0.844728
+shader_parameter/progress = 0.849585
 shader_parameter/angle = 1.0
 shader_parameter/border_color = Color(1, 1, 1, 0.5)
 shader_parameter/fill_color = Color(1, 0, 0, 0.5)
@@ -23,9 +24,10 @@ width = 1
 [sub_resource type="CircleShape2D" id="CircleShape2D_2urnp"]
 radius = 0.45
 
-[node name="CircularChannelingAttack" type="Node2D"]
+[node name="CircleChannelingAttack" type="Node2D"]
 scale = Vector2(200, 200)
-script = ExtResource("1_4mdqj")
+script = ExtResource("1_y31lr")
+is_enemy = null
 
 [node name="ChannelingSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -37,8 +39,19 @@ unique_name_in_owner = true
 
 [node name="Area2D" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 128
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_2urnp")
 
+[node name="AttackComponent" type="Node" parent="." node_paths=PackedStringArray("channeling_timer", "area")]
+unique_name_in_owner = true
+script = ExtResource("3_cpvlw")
+damage = 20.0
+channeling_timer = NodePath("../ChannelingTimer")
+area = NodePath("../Area2D")
+metadata/_custom_type_script = "uid://cqqypi7jwwheo"
+
 [connection signal="timeout" from="ChannelingTimer" to="." method="_on_channeling_timer_timeout"]
+[connection signal="attack_performed" from="AttackComponent" to="." method="_on_attack_component_attack_performed"]

@@ -1,14 +1,18 @@
 class_name Player
 extends CharacterBody2D
 
-@export var hp: float = 100;
 @export var speed: float = 18 * 1000.0;
 @onready var bulletController: BulletController = %BulletController;
+@onready var damagable_component: DamagableComponent = %DamagableComponent;
+@onready var player_sprite: Sprite2D = %PlayerSprite;
+
+var original_modulate;
 
 func _ready() -> void:
 	Global.player = self;
 	if(!bulletController):
 		print("BulletController is not initialized");
+	original_modulate = player_sprite.modulate;
 	pass;
 
 func _physics_process(delta: float) -> void:
@@ -35,20 +39,19 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func hurt(damage: float) -> void:
-	hp -= damage;
-	print("Player HP: ", hp)
-	check_death()
-
-
-func check_death():
-	if( hp<=0 ):
-		queue_free();
-
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("player-fire"):
 		bulletController.turn_on_shot_at_target();
 
 	if event.is_action_released("player-fire"):
 		bulletController.turn_off_shot_at_target();
+
+
+func _on_damagable_component_took_damage() -> void:
+	player_sprite.modulate = Color(10,0,0,1)
+	await get_tree().create_timer(0.1).timeout
+	player_sprite.modulate = original_modulate
+
+
+func _on_damagable_component_death() -> void:
+	self.queue_free();

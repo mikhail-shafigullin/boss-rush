@@ -1,8 +1,8 @@
 @tool
 extends BTAction
 
-var circle_attack_scene: PackedScene = preload("res://objects/attacks/circularChannelingAttack.tscn");
-var circle_attack: CircularChannelingAttack;
+var circle_attack_scene: PackedScene = preload("res://objects/attacks/CircleChannelingAttack.tscn");
+var circle_attack: CircleChannelingAttack;
 
 func _generate_name() -> String:
 	return "Send circular attack to player"
