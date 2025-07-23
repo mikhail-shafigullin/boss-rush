@@ -81,7 +81,11 @@ func _ctl_add(data: Variant) -> Controller:
 @rpc("any_peer", "call_local", "reliable")
 func _ctl_remove_process(uid: int):
   if multiplayer.is_server() and controllers.has(uid):
-    _despawned(controllers[uid])
+    var caller := multiplayer.get_remote_sender_id()
+    var controller: Controller = controllers[uid]
+    if (caller == multiplayer.get_unique_id()
+       or caller == controller.client.net_id):
+      _despawned(controllers[uid])
 
 func _despawned(c: Controller):
   var uid: int = c.id

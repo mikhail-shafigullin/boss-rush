@@ -74,3 +74,8 @@ static func event_is_valid(event: InputEvent) -> bool:
     return false
 
   return event is InputEventKey or InputEventJoypadButton
+
+
+func remove():
+  assert(client)
+  client.remove_controller(id)

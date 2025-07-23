@@ -10,12 +10,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 1
 tabs_position = 1
 tabs_visible = false
 script = ExtResource("1_meokv")
 
 [node name="Standby" type="Control" parent="."]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -35,9 +36,19 @@ grow_vertical = 2
 text = "press any button to join"
 
 [node name="Active" type="Control" parent="."]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+
+[node name="InputDeviceTexture" type="TextureRect" parent="Active"]
+unique_name_in_owner = true
+modulate = Color(0.564962, 0.564962, 0.564962, 0.470588)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5
 
 [node name="ControllerId" type="Label" parent="Active"]
 unique_name_in_owner = true
@@ -47,3 +58,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="KickButton" type="Button" parent="Active"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "X"
+
+[connection signal="pressed" from="Active/KickButton" to="." method="_on_kick_button_pressed"]
