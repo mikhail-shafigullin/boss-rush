@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://fko1qa2hrega" path="res://assets/sprites/player/Player.png" id="1_o6ghu"]
 [ext_resource type="Script" uid="uid://dkrp6osocr0la" path="res://src/player/Player.gd" id="1_sllil"]
-[ext_resource type="Script" uid="uid://ccv3m2g8be0hh" path="res://src/controllers/weapons/bullet/BulletController.gd" id="3_1fx2d"]
+[ext_resource type="Script" uid="uid://ccv3m2g8be0hh" path="res://src/controllers/weapons/bullet/BulletAttackComponent.gd" id="3_1fx2d"]
 [ext_resource type="PackedScene" uid="uid://b5sbbfmswa7v5" path="res://objects/weapons/bullet/Bullet.tscn" id="4_6o7ef"]
 [ext_resource type="Script" uid="uid://b7vstqbp4dspa" path="res://src/personas/DamagableComponent.gd" id="5_h7ooo"]
 

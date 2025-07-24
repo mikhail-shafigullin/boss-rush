@@ -1,4 +1,4 @@
-class_name BulletController
+class_name BulletAttackComponent
 extends Node
 
 @export var bullet_scene: PackedScene

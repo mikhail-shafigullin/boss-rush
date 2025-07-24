@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var teleport_range: float = 300.0;
 
 @onready var attackTimer: Timer = %AttackTimer;
+@onready var enemy_component: EnemyComponent = %EnemyComponent;
 
 var random: RandomNumberGenerator;
 

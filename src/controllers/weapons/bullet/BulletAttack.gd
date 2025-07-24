@@ -4,22 +4,27 @@ extends Area2D
 @export var speed: float = 1000.0
 var direction: Vector2 = Vector2.ZERO;
 
-var enemyBitMask = 1 << 4
+var initial_position: Vector2 = Vector2.ZERO;
+var delete_distance: float = 2000;
+
+@onready var attack_component: AttackComponent = %AttackComponent;
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
+	initial_position = global_position;
+	attack_component.perform_attack();
 
 func set_direction(new_direction: Vector2) -> void:
 	direction = new_direction
 	rotation = direction.angle()
 
 func _process(delta: float) -> void:
-	position += direction * speed * delta
+	position += direction * speed * delta;
+	check_distance();
 
-func _on_body_entered(body: Node) -> void:
-	print(body);
-	if body.get_collision_layer() & enemyBitMask == enemyBitMask:
-		var enemyController: EnemyController = body.get_node("EnemyController");
-		enemyController.on_hit()
+func check_distance():
+	if(initial_position.distance_to(global_position) > delete_distance):
 		queue_free();
-	
+	pass;
+
+func _on_attack_component_attack_hit() -> void:
+	queue_free();

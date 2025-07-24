@@ -8,6 +8,8 @@
 radius = 7.0
 
 [node name="Bullet" type="Area2D"]
+collision_layer = 32
+collision_mask = 16
 script = ExtResource("1_70nx8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -16,7 +18,11 @@ texture = ExtResource("2_jghcl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jghcl")
 
-[node name="DamageComponent" type="Node" parent="." node_paths=PackedStringArray("area")]
+[node name="AttackComponent" type="Node" parent="." node_paths=PackedStringArray("area")]
+unique_name_in_owner = true
 script = ExtResource("3_je3pf")
+damage = 2.0
 area = NodePath("..")
 metadata/_custom_type_script = "uid://cqqypi7jwwheo"
+
+[connection signal="attack_hit" from="AttackComponent" to="." method="_on_attack_component_attack_hit"]

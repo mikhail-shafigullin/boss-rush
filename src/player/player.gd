@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 @export var speed: float = 18 * 1000.0;
-@onready var bulletController: BulletController = %BulletController;
+@onready var bulletController: BulletAttackComponent = %BulletController;
 @onready var damagable_component: DamagableComponent = %DamagableComponent;
 @onready var player_sprite: Sprite2D = %PlayerSprite;
 

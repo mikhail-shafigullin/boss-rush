@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dw1cen4dbqi4a" path="res://assets/sprites/bosses/testboss/Enemy.png" id="1_gb1kc"]
 [ext_resource type="Script" uid="uid://c0ouyrfqkv3bd" path="res://src/personas/enemies/testBoss/TestBoss.gd" id="1_qon61"]
 [ext_resource type="PackedScene" uid="uid://cksy1ff062fm4" path="res://objects/attacks/CircleChannelingAttack.tscn" id="2_ok12a"]
-[ext_resource type="Script" uid="uid://coc3bl34vdwcm" path="res://src/personas/enemies/EnemyController.gd" id="3_m4s85"]
+[ext_resource type="Script" uid="uid://coc3bl34vdwcm" path="res://src/personas/enemies/EnemyComponent.gd" id="3_m4s85"]
 [ext_resource type="BehaviorTree" uid="uid://b80lkde0e5j2j" path="res://objects/bosses/test_boss_behaviour_tree.tres" id="5_8fjiu"]
 [ext_resource type="Script" uid="uid://b7vstqbp4dspa" path="res://src/personas/DamagableComponent.gd" id="6_iut8j"]
 
@@ -14,6 +14,7 @@ radius = 30.0167
 
 [node name="TestBoss" type="CharacterBody2D"]
 collision_layer = 17
+collision_mask = 97
 script = ExtResource("1_qon61")
 circularAttackOnPlayer = ExtResource("2_ok12a")
 
@@ -22,10 +23,6 @@ texture = ExtResource("1_gb1kc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gb1kc")
-
-[node name="EnemyController" type="Node2D" parent="." node_paths=PackedStringArray("changeable_sprite")]
-script = ExtResource("3_m4s85")
-changeable_sprite = NodePath("../EnemySprite")
 
 [node name="AttackTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -36,6 +33,16 @@ behavior_tree = ExtResource("5_8fjiu")
 blackboard_plan = SubResource("BlackboardPlan_ok12a")
 monitor_performance = true
 
-[node name="DamagableComponent" type="Node" parent="."]
+[node name="EnemyComponent" type="Node" parent="." node_paths=PackedStringArray("changeable_sprite", "damageable_component")]
+unique_name_in_owner = true
+script = ExtResource("3_m4s85")
+changeable_sprite = NodePath("../EnemySprite")
+damageable_component = NodePath("../DamagableComponent")
+metadata/_custom_type_script = "uid://coc3bl34vdwcm"
+
+[node name="DamagableComponent" type="Node" parent="." node_paths=PackedStringArray("area")]
+unique_name_in_owner = true
 script = ExtResource("6_iut8j")
+hp = 100.0
+area = NodePath("..")
 metadata/_custom_type_script = "uid://b7vstqbp4dspa"
