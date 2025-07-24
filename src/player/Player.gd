@@ -8,43 +8,43 @@ extends CharacterBody2D
 
 var original_modulate;
 
+
 func _ready() -> void:
-	Global.player = self;
+	if is_multiplayer_authority():
+		$Camera2D.make_current()
+		Global.player = self;
+
 	if(!bulletController):
 		print("BulletController is not initialized");
 	original_modulate = player_sprite.modulate;
 	pass;
 
+
 func _physics_process(delta: float) -> void:
-	var direction := Vector2.ZERO
-	
-	if Input.is_action_pressed("player-up"):
-		direction.y -= 1
-	if Input.is_action_pressed("player-down"):
-		direction.y += 1
-	if Input.is_action_pressed("player-left"):
-		direction.x -= 1
-	if Input.is_action_pressed("player-right"):
-		direction.x += 1
-	
-	if direction != Vector2.ZERO:
-		direction = direction.normalized()
-		velocity = direction * speed * delta
+	if is_multiplayer_authority():
+		var direction := Input.get_vector("player-left", "player-right", "player-up", "player-down")
+		
+		if direction != Vector2.ZERO:
+			velocity = direction * speed * delta
+		else:
+			velocity = Vector2.ZERO
+		
+		var mouse_pos = get_global_mouse_position()
+		bulletController.target_at_position(global_position, mouse_pos);
+
+		move_and_slide()
 	else:
 		velocity = Vector2.ZERO
 	
-	var mouse_pos = get_global_mouse_position()
-	bulletController.target_at_position(global_position, mouse_pos);
-	
-	move_and_slide()
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("player-fire"):
-		bulletController.turn_on_shot_at_target();
+	if is_multiplayer_authority():
+		if event.is_action_pressed("player-fire"):
+			bulletController.turn_on_shot_at_target();
 
-	if event.is_action_released("player-fire"):
-		bulletController.turn_off_shot_at_target();
+		if event.is_action_released("player-fire"):
+			bulletController.turn_off_shot_at_target();
 
 
 func _on_damagable_component_took_damage() -> void:
@@ -55,3 +55,7 @@ func _on_damagable_component_took_damage() -> void:
 
 func _on_damagable_component_death() -> void:
 	self.queue_free();
+
+
+func despawn() -> void:
+	queue_free()

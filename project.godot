@@ -17,13 +17,18 @@ config/icon="uid://cekvoxy0w4lnw"
 
 [autoload]
 
-Global="*res://src/globals/Global.gd"
 Lobby="*res://src/mp/Lobby.gd"
+Global="*res://src/globals/Global.gd"
 
 [display]
 
 window/size/initial_position_type=3
 window/size/initial_screen=1
+
+[editor]
+
+naming/scene_name_casing=1
+naming/script_name_casing=1
 
 [input]
 

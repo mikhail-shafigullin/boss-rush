@@ -1,15 +1,10 @@
-[gd_resource type="BehaviorTree" load_steps=19 format=3 uid="uid://b80lkde0e5j2j"]
+[gd_resource type="BehaviorTree" load_steps=17 format=3 uid="uid://b80lkde0e5j2j"]
 
-[ext_resource type="Script" uid="uid://dojgiclr7nfpa" path="res://ai/tasks/enemies/PlayerInRange.gd" id="1_qawor"]
 [ext_resource type="Script" uid="uid://dfq4l0a08wmx8" path="res://ai/tasks/enemies/SendCircleSegmentAttackToPlayer.gd" id="2_qawor"]
-[ext_resource type="Script" uid="uid://dnyu34y63i4pt" path="res://ai/tasks/enemies/SendCircleAttackToPlayer.gd" id="3_qawor"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_su5lh"]
 
 [sub_resource type="BTCondition" id="BTCondition_qawor"]
-script = ExtResource("1_qawor")
-distance_min = 0.0
-distance_max = 100.0
 
 [sub_resource type="BTAction" id="BTAction_cysw0"]
 script = ExtResource("2_qawor")
@@ -26,7 +21,6 @@ children = [SubResource("BTCondition_qawor"), SubResource("BTCooldown_qawor"), S
 [sub_resource type="BTWait" id="BTWait_su5lh"]
 
 [sub_resource type="BTAction" id="BTAction_hmuwe"]
-script = ExtResource("3_qawor")
 
 [sub_resource type="BTSequence" id="BTSequence_su5lh"]
 children = [SubResource("BTWait_su5lh"), SubResource("BTAction_hmuwe")]
