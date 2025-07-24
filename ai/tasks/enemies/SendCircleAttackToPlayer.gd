@@ -16,7 +16,7 @@ func _enter() -> void:
 		var attackPos: Vector2 = player.global_position;
 		var circularAttack: Node2D = circle_attack_scene.instantiate();
 		circularAttack.global_position = attackPos;
-		agent.get_tree().root.add_child(circularAttack);
+		Global.attacks_pool.add_child(circularAttack);
 	pass;
 	
 func _exit() -> void:

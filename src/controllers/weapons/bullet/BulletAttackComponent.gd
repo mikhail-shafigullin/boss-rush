@@ -36,5 +36,5 @@ func shot_at_position(position: Vector2, target_position: Vector2) -> void:
 	bullet.position = position
 	var direction = (target_position - position).normalized()
 	bullet.set_direction(direction)
-	get_tree().root.add_child(bullet)
+	Global.attacks_pool.add_child(bullet)
 	cooldown_wait += cooldown;

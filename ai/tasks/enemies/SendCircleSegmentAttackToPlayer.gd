@@ -18,7 +18,7 @@ func _enter() -> void:
 		circularAttack.global_position = agent.global_position;
 		var direction: Vector2 = (attackPos - circularAttack.global_position).normalized();
 		circularAttack.rotation = direction.angle();
-		agent.get_tree().root.add_child(circularAttack);
+		Global.attacks_pool.add_child(circularAttack);
 	pass;
 	
 func _exit() -> void:
