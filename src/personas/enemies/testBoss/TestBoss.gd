@@ -17,13 +17,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass;
 	
-func circular_attack_to_player() -> void:
-	var player: Player = Global.player;
-	if player:
-		var attackPos: Vector2 = player.global_position;
-		var circularAttack: Node2D = circularAttackOnPlayer.instantiate();
-		circularAttack.global_position = attackPos;
-		get_tree().root.add_child(circularAttack);
 
 func teleport_to_random_pos_near_player():
 	var player: Player = Global.player;
