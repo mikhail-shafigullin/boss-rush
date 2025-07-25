@@ -12,7 +12,7 @@ radius = 16.0312
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h7ooo"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 2
+properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -42,6 +42,7 @@ area = NodePath("..")
 metadata/_custom_type_script = "uid://b7vstqbp4dspa"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_h7ooo")
 
 [connection signal="death" from="DamagableComponent" to="." method="_on_damagable_component_death"]

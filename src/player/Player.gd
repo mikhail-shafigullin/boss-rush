@@ -17,11 +17,16 @@ func _ready() -> void:
 	if(!bulletController):
 		print("BulletController is not initialized");
 	original_modulate = player_sprite.modulate;
-	pass;
-
+	
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
+		player_master_move(delta)
+	else:
+		velocity = Vector2.ZERO
+
+
+func player_master_move(delta: float) -> void:
 		var direction := Input.get_vector("player-left", "player-right", "player-up", "player-down")
 		
 		if direction != Vector2.ZERO:
@@ -33,9 +38,6 @@ func _physics_process(delta: float) -> void:
 		bulletController.target_at_position(global_position, mouse_pos);
 
 		move_and_slide()
-	else:
-		velocity = Vector2.ZERO
-	
 
 
 func _input(event: InputEvent) -> void:

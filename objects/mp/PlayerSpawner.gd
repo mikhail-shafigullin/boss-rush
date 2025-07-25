@@ -11,7 +11,6 @@ const player_res := preload("res://objects/player/Player.tscn")
 
 func _spawn_player(data: Dictionary) -> Node:
 	var player = player_res.instantiate()
-	print(data[CLIENT_ID])
 	player.set_multiplayer_authority(data[CLIENT_ID])
 	player.global_position = data[POSITION]
 	return player

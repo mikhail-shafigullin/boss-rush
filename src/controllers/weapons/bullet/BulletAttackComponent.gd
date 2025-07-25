@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if is_shoting and cooldown_wait <= 0:
-		shot_at_position(source_position, target_position);
+		shot_at_position.rpc(source_position, target_position);
 	
 	if cooldown_wait > 0:
 		cooldown_wait -= delta;
@@ -31,6 +31,7 @@ func turn_on_shot_at_target() -> void:
 func turn_off_shot_at_target() -> void:
 	is_shoting = false;
 
+@rpc("authority", "reliable", "call_local")
 func shot_at_position(position: Vector2, target_position: Vector2) -> void:
 	var bullet = bullet_scene.instantiate() as Node2D
 	bullet.position = position
