@@ -6,13 +6,24 @@ extends CharacterBody2D
 @onready var damagable_component: DamagableComponent = %DamagableComponent;
 @onready var player_sprite: Sprite2D = %PlayerSprite;
 
+@onready var synchronizer: StateSynchronizer = %StateSynchronizer
+@onready var interpolator: TickInterpolator = %TickInterpolator
+
 var original_modulate;
 
 
 func _ready() -> void:
+	interpolator.add_property(self, "position")
+	synchronizer.add_state(self, "position")
+
 	if is_multiplayer_authority():
 		$Camera2D.make_current()
 		Global.player = self;
+		interpolator.enabled = false
+		interpolator.enable_recording = false
+	else:
+		interpolator.enabled = true
+		interpolator.enable_recording = true
 
 	if(!bulletController):
 		print("BulletController is not initialized");

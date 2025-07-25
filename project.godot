@@ -19,6 +19,13 @@ config/icon="uid://cekvoxy0w4lnw"
 
 Lobby="*res://src/mp/Lobby.gd"
 Global="*res://src/globals/Global.gd"
+NetworkTime="*res://addons/netfox/network-time.gd"
+NetworkTimeSynchronizer="*res://addons/netfox/network-time-synchronizer.gd"
+NetworkRollback="*res://addons/netfox/rollback/network-rollback.gd"
+NetworkEvents="*res://addons/netfox/network-events.gd"
+NetworkPerformance="*res://addons/netfox/network-performance.gd"
+Noray="*res://addons/netfox.noray/noray.gd"
+PacketHandshake="*res://addons/netfox.noray/packet-handshake.gd"
 
 [display]
 
@@ -29,6 +36,10 @@ window/size/initial_screen=1
 
 naming/scene_name_casing=1
 naming/script_name_casing=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/netfox/plugin.cfg")
 
 [input]
 
