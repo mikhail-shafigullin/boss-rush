@@ -8,7 +8,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_jbsl1")
 shader_parameter/border_width = 0.007
-shader_parameter/progress = 0.250555
+shader_parameter/progress = 0.0
 shader_parameter/angle = 1.0
 shader_parameter/border_color = Color(1, 1, 1, 0.5)
 shader_parameter/fill_color = Color(1, 0, 0, 0.5)
@@ -27,7 +27,6 @@ radius = 0.45
 [node name="CircleChannelingAttack" type="Node2D"]
 scale = Vector2(200, 200)
 script = ExtResource("1_y31lr")
-is_enemy = null
 
 [node name="ChannelingSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
